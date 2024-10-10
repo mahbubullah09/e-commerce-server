@@ -13,6 +13,15 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  discount: {
+    type: String,
+    required: true,
+  },
+  image: String,
+  category:{
+    type: String,
+    required: true,
+  }
   
 });
 
