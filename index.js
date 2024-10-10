@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const productsRoute = require('./RouteHandler/productsRoute')
+const userRoute = require('./RouteHandler/userRoute')
 const cors = require('cors')
 
 dotenv.config();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Routes
 app.use('/products', productsRoute);
+app.use('/auth', userRoute);
 
 // Database connection
 const uri = `mongodb+srv://${process.env.DB_User}:${process.env.DB_Pass}@cluster0.ennn1mj.mongodb.net/emommerce?retryWrites=true&w=majority&appName=Cluster0`;

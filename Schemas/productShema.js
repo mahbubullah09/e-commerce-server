@@ -17,12 +17,14 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image: String,
-  category:{
+  images: {
+    type: Array, 
+    required: true,
+  },
+  category: {
     type: String,
     required: true,
   }
-  
 });
 
-module.exports = mongoose.model("Products", productSchema)
+module.exports = mongoose.model("Products", productSchema);
