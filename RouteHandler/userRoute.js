@@ -42,7 +42,7 @@ router.post("/registration", async (req, res) => {
       const payload = { user: { id: user.id, role: user.role } };
       const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
   
-      res.json({ token });
+      res.json({ token, user });
     } catch (err) {
       console.error("Error during login:", err); 
       res.status(500).json({ msg: 'Server error', error: err.message }); // Provide more details
