@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../Schemas/userSchema");
 const bcrypt = require("bcryptjs");
+const { CURSOR_FLAGS } = require("mongodb");
 
 const router = express.Router();
 
@@ -31,7 +32,7 @@ router.post("/registration", async (req, res) => {
     const { email, password } = req.body;
   
     try {
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ email }).lean();;
       if (!user) {
         return res.status(400).json({ msg: "User not found" }); 
       }
@@ -41,11 +42,16 @@ router.post("/registration", async (req, res) => {
   
       const payload = { user: { id: user.id, role: user.role } };
       const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+      delete user.password;
+
+      console.log(user);
+      
   
       res.json({ token, user });
     } catch (err) {
       console.error("Error during login:", err); 
-      res.status(500).json({ msg: 'Server error', error: err.message }); // Provide more details
+      res.status(500).json({ msg: 'Server error', error: err.message }); 
     }
   });
   
